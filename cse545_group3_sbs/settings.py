@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cse545_group3_sbs',
         'USER': 'root',
-        'PASSWORD': 'Grand.garramo88',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
