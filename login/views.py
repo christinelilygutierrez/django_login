@@ -14,17 +14,22 @@ def index(request):
         #context = {'message' : "We are glad that you have arrived safely"}
         #return HttpResponse(template.render(context, request))
         # Method 2
-        context = {'message' : "We are glad that you have arrived safely"}
+        #context = {'message' : "We are glad that you have arrived safely"}
         # Method 3: Do not use try, except
         #value = get_object_or_404(DBTableName, pk=PUBLICKEY)
         #return render(request, 'login/index.html', context)
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('login:account'))
     except:
         raise Http404("An error occurred")
-    return render(request, 'login/index.html', context)
+    return render(request, 'login/signin.html')
 
 # Login Page
 def signin(request):
-    return render(request, 'login/signin.html')
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login:account'))
+    else:
+        return render(request, 'login/signin.html')
 
 # Validate login
 def loginValidate(request):
@@ -32,7 +37,7 @@ def loginValidate(request):
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('login:account', args=(request.POST['username'],)))
+            return HttpResponseRedirect(reverse('login:account'))
         else:
             raise Exception('Incorrect username and password combination')
     except Exception as badPassword:
@@ -47,6 +52,5 @@ def signout(request):
 
 # Account Page
 @login_required
-def account(request, username):
-    response = ("Welcome, %s, to the Secure Banking Site" % username)
-    return HttpResponse(response)
+def account(request):
+    return render(request, 'login/account.html')
