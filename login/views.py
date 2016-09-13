@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 # Welcome Page
 def index(request):
@@ -54,3 +55,8 @@ def signout(request):
 @login_required
 def account(request):
     return render(request, 'login/account.html')
+
+# Test page
+@user_passes_test(lambda u: u.has_perm('login.can_publish'))
+def permission_test(request):
+    return HttpResponse('How did you get here? GET OUT! GET OUT, NOW!')

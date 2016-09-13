@@ -12,6 +12,7 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     ssn = models.IntegerField()
+    session_key = models.CharField(max_length=100,default="")
 
     class Meta:
         abstract = True

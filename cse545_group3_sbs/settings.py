@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'login.middleware.OneLoginPerUserMiddleware'
 ]
 
 ROOT_URLCONF = 'cse545_group3_sbs.urls'
@@ -80,7 +81,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cse545_group3_sbs',
         'USER': 'root',
-        'PASSWORD': DATABASE_PASSWORD,
+        #'PASSWORD': DATABASE_PASSWORD,
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
